@@ -9,7 +9,7 @@ const maxXP = 10;
 const xpAuditLogChannelID = "675995520032047105";
 const mainChatChannelID = "675975228446212099";
 const fireBaseURL = process.env.fireBaseURL;
-const xpName = "Points";
+const xpName = "points";
 /* SETTINGS END */
 
 /* PACKAGES START */
@@ -602,3 +602,9 @@ bot.on('message', async message => {
 
 
 bot.login(bot_token)
+var server_port = process.env.YOUR_PORT || process.env.PORT || 80;
+var server_host = process.env.YOUR_HOST || '0.0.0.0';
+server.listen(server_port, server_host, function() {
+    console.log('Listening on port %d', server_port);
+});
+          
