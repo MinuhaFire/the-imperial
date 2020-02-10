@@ -147,8 +147,8 @@ bot.on('message', async message => {
                 .setDescription(`:warning: **${userArray[i]} doesn't exist on ROBLOX** :warning:`);
                 await message.channel.send(errorEmbed);
             }else{
-              var userID = await rbx.getIdFromUsername(`${userArray[i]}`).catch;
-              var { body } = await snekfetch.get(`${fireBaseURL}/xpData/users/${userID}.json`).catch;
+              var userID = await rbx.getIdFromUsername(`${userArray[i]}`);
+              var { body } = await snekfetch.get(`${fireBaseURL}/xpData/users/${userID}.json`);
               var currentXP;
 
               if (!body){
@@ -167,7 +167,7 @@ bot.on('message', async message => {
                   .setColor(0x5aa9fe)
                   .setTitle(`Insertion`)
                   .setDescription(`Inserted and updated **\`${userArray[i].toLowerCase()}\`**'s profile within my database!`)
-                await message.channel.send(embed).then(message => message.delete(5000)).catch;
+                await message.channel.send(embed).then(message => message.delete(5000));
                 var auditLogEmbed = new Discord.RichEmbed()
                   .setColor(0xff793b)
                   .setTitle(`**Add**`)
@@ -321,25 +321,25 @@ bot.on('message', async message => {
                 var { body } = await snekfetch.get(`${fireBaseURL}/roles/${currentRankID}.json`);
                 var requiredXPAtCurrentRankID = body.requiredXP
 
-                var {body} = await snekfetch.get(`https://groups.roblox.com/v1/groups/${groupID}/roles`).catch
+                var {body} = await snekfetch.get(`https://groups.roblox.com/v1/groups/${groupID}/roles`)
 
                 for (i = body.roles.length-1; i > 0; i--){
                   console.log(i)
-                  var {body} = await snekfetch.get(`https://groups.roblox.com/v1/groups/${groupID}/roles`).catch
+                  var {body} = await snekfetch.get(`https://groups.roblox.com/v1/groups/${groupID}/roles`)
                   var currentRankID = await rbx.getRankInGroup(groupID, userID)
                   var bodyRolesRankNum = body.roles[i].rank
                   var bodyRoleRankName = body.roles[i].name
-                  var {body} = await snekfetch.get(`${fireBaseURL}/xpData/users/${userID}.json
+                  var {body} = await snekfetch.get(`${fireBaseURL}/xpData/users/${userID}.json`)
                   var currentXP = body.xpValue
 
-                  var { body } = await snekfetch.get(`${fireBaseURL}/roles/${currentRankID}.json`).catch;
+                  var { body } = await snekfetch.get(`${fireBaseURL}/roles/${currentRankID}.json`);
 
                   var requiredXPAtCurrentRankID = body.requiredXP
                   console.log(`current ${xpName}- ${currentXP}\nrequired ${xpName}- ${requiredXPAtCurrentRankID}`)
 
                   if (Number(currentRankID) === Number(bodyRolesRankNum)){
                     if (currentXP < requiredXPAtCurrentRankID){
-                      await groupFunction.demote(Number(userID)).catch
+                      await groupFunction.demote(Number(userID))
                       console.log('demoted')
                       var rblxUsername = await rbx.getUsernameFromId(userID)
                       var embed = new Discord.RichEmbed()
