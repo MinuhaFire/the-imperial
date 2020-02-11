@@ -138,11 +138,8 @@ bot.on('message', async message => {
                     var currentRankID = await rbx.getRankInGroup(groupID, userID)
                     var bodyRolesRankNum = body.roles[i].rank
                     var bodyRoleRankName = body.roles[i].name
-                    var {body} = await snekfetch.get(`${fireBaseURL}/xpData/users/${userID}.json`)
+                    var { body } = await snekfetch.get(`${fireBaseURL}/xpData/users/${userID}.json`)
                     var currentXP = body.xpValue
-
-                    var { body } = await snekfetch.get(`${fireBaseURL}/roles/${currentRankID}.json`);
-
                     var requiredXPAtCurrentRankID = body.requiredXP
                     console.log(`current ${xpName}- ${currentXP}\nrequired ${xpName}- ${requiredXPAtCurrentRankID}`)
 
