@@ -43,7 +43,13 @@ bot.on('message', async message => {
   const args = message.content.split(/[ ]+/)
   const promoLogs = bot.channels.get(`${xpAuditLogChannelID}`)
   const officerRole = message.guild.roles.find(role => role.name === `${officerRoleE}`);
-  const groupFunction = await bloxyClient.getGroup(groupID)
+  let groupFunction;
+try{    
+  groupFunction = await bloxyClient.getGroup(groupID)
+  //with the following of you code or encapsulate the rest in a function.
+}catch (err){
+  return console.log(err)
+}
 
   if (message.content.toLowerCase().startsWith(`${prefix}${xpName}`)){
     if (!message.member.roles.exists("name", `${officerRoleE}`)){
