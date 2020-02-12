@@ -43,12 +43,12 @@ bot.on('message', async message => {
   const args = message.content.split(/[ ]+/)
   const promoLogs = bot.channels.get(`${xpAuditLogChannelID}`)
   const officerRole = message.guild.roles.find(role => role.name === `${officerRoleE}`);
-  try{    
-  const groupFunction = await bloxyClient.getGroup(groupID)
-  //with the following of your code or encapsulate the rest in a function.
-}catch (err){
+ try{    
+  const groupFunction = await bloxyClient.getGroup(groupID)   //with the following of your code or encapsulate the rest in a function.
+ } catch (err){
   return console.log(err)
 }
+
 
   if (message.content.toLowerCase().startsWith(`${prefix}${xpName}`)){
     if (!message.member.roles.exists("name", `${officerRoleE}`)){
@@ -78,10 +78,24 @@ bot.on('message', async message => {
               var errorEmbed = new Discord.RichEmbed()
                 .setColor(0xff4040)
                 .setDescription(`:warning: **${userArray[i]} doesn't exist on ROBLOX** :warning:`);
-                await message.channel.send(errorEmbed);
+                await message.channel.send(errorEmbed);  
+			try{
+				 } catch (err){
+  return console.log(err)
+}
+
             }else{
               var userID = await rbx.getIdFromUsername(`${userArray[i]}`);
+			  try{
+			   } catch (err){
+  return console.log(err)
+}
+
               var { body } = await snekfetch.get(`${fireBaseURL}/xpData/users/${userID}.json`);
+			  try{
+			   } catch (err){
+  return console.log(err)
+}
               var currentXP;
 
               if (!body){
@@ -133,18 +147,45 @@ bot.on('message', async message => {
 
 
                   var { body } = await snekfetch.get(`${fireBaseURL}/roles/${currentRankID}.json`);
+				  try{
+			   } catch (err){
+  return console.log(err)
+}
                   var requiredXPAtCurrentRankID = body.requiredXP
 
                   var {body} = await snekfetch.get(`https://groups.roblox.com/v1/groups/${groupID}/roles`)
+				  try{
+			   } catch (err){
+  return console.log(err)
+}
 
                   for (i = body.roles.length-1; i > 0; i--){
                     console.log(i)
                     var {body} = await snekfetch.get(`https://groups.roblox.com/v1/groups/${groupID}/roles`)
+					try{
+			   } catch (err){
+  return console.log(err)
+}
                     var currentRankID = await rbx.getRankInGroup(groupID, userID)
+					try{
+			   } catch (err){
+  return console.log(err)
+}
                     var bodyRolesRankNum = body.roles[i].rank
                     var bodyRoleRankName = body.roles[i].name
-                    var { body } = await snekfetch.get(`${fireBaseURL}/xpData/users/${userID}.json`)
+                    var {body} = await snekfetch.get(`${fireBaseURL}/xpData/users/${userID}.json`)
+					try{
+			   } catch (err){
+  return console.log(err)
+}
                     var currentXP = body.xpValue
+
+                    var { body } = await snekfetch.get(`${fireBaseURL}/roles/${currentRankID}.json`);
+					try{
+			   } catch (err){
+  return console.log(err)
+}
+
                     var requiredXPAtCurrentRankID = body.requiredXP
                     console.log(`current ${xpName}- ${currentXP}\nrequired ${xpName}- ${requiredXPAtCurrentRankID}`)
 
@@ -162,19 +203,36 @@ bot.on('message', async message => {
                   }
 
                   var {body} = await snekfetch.get(`https://groups.roblox.com/v1/groups/${groupID}/roles`)
+				  try{
+			   } catch (err){
+  return console.log(err)
+}
 
 
                   for (i = 1; i < body.roles.length-1; i++){
                     console.log(i)
+
                     var {body} = await snekfetch.get(`https://groups.roblox.com/v1/groups/${groupID}/roles`)
+					try{
+			   } catch (err){
+  return console.log(err)
+}
 
                     if (body.roles[i].rank === Number(currentRankID)){
                       var bodyRolesRankNumber = body.roles[i+1].rank;
 
                       var {body} = await snekfetch.get(`${fireBaseURL}/xpData/users/${userID}.json`)
+					  try{
+			   } catch (err){
+  return console.log(err)
+}
                       var currentXP = body.xpValue
 
                       var { body } = await snekfetch.get(`${fireBaseURL}/roles/${bodyRolesRankNumber}.json`);
+					  try{
+			   } catch (err){
+  return console.log(err)
+}
                       if ((Number(body.requiredXP) !== Number(0)) && (currentXP >= body.requiredXP)){
                         console.log('promoted')
                         var rblxUsername = await rbx.getUsernameFromId(userID)
@@ -194,6 +252,10 @@ bot.on('message', async message => {
           var userArray = message.content.slice(message.content.indexOf(message.content.split(" ")[3])).split(', ');
           for (i = 0; i < userArray.length; i++){
             var { body } = await snekfetch.get(`https://api.roblox.com/users/get-by-username?username=${userArray[i]}`);
+			try{
+			   } catch (err){
+  return console.log(err)
+}
             if (body.success === false){
               var errorEmbed = new Discord.RichEmbed()
                 .setColor(0xff4040)
@@ -201,7 +263,15 @@ bot.on('message', async message => {
                 await message.channel.send(errorEmbed);
             }else{
               var userID = await rbx.getIdFromUsername(`${userArray[i]}`);
+			  try{
+			   } catch (err){
+  return console.log(err)
+}
               var { body } = await snekfetch.get(`${fireBaseURL}/xpData/users/${userID}.json`);
+			  try{
+			   } catch (err){
+  return console.log(err)
+}
               var currentXP = 0;
 
               if (!body){
@@ -248,21 +318,49 @@ bot.on('message', async message => {
 
 
                 var currentRankID = await rbx.getRankInGroup(groupID, userID)
+				try{
+			   } catch (err){
+  return console.log(err)
+}
                 var { body } = await snekfetch.get(`${fireBaseURL}/roles/${currentRankID}.json`);
+				try{
+			   } catch (err){
+  return console.log(err)
+}
                 var requiredXPAtCurrentRankID = body.requiredXP
 
                 var {body} = await snekfetch.get(`https://groups.roblox.com/v1/groups/${groupID}/roles`)
+				try{
+			   } catch (err){
+  return console.log(err)
+}
 
                 for (i = body.roles.length-1; i > 0; i--){
                   console.log(i)
                   var {body} = await snekfetch.get(`https://groups.roblox.com/v1/groups/${groupID}/roles`)
+				  try{
+			   } catch (err){
+  return console.log(err)
+}
                   var currentRankID = await rbx.getRankInGroup(groupID, userID)
+				  try{
+			   } catch (err){
+  return console.log(err)
+}
                   var bodyRolesRankNum = body.roles[i].rank
                   var bodyRoleRankName = body.roles[i].name
                   var {body} = await snekfetch.get(`${fireBaseURL}/xpData/users/${userID}.json`)
+				  try{
+			   } catch (err){
+  return console.log(err)
+}
                   var currentXP = body.xpValue
 
                   var { body } = await snekfetch.get(`${fireBaseURL}/roles/${currentRankID}.json`);
+				  try{
+			   } catch (err){
+  return console.log(err)
+}
 
                   var requiredXPAtCurrentRankID = body.requiredXP
                   console.log(`current ${xpName}- ${currentXP}\nrequired ${xpName}- ${requiredXPAtCurrentRankID}`)
@@ -281,19 +379,35 @@ bot.on('message', async message => {
                 }
 
                 var {body} = await snekfetch.get(`https://groups.roblox.com/v1/groups/${groupID}/roles`)
+				try{
+			   } catch (err){
+  return console.log(err)
+}
 
 
                 for (i = 1; i < body.roles.length-1; i++){
                   console.log(i)
                   var {body} = await snekfetch.get(`https://groups.roblox.com/v1/groups/${groupID}/roles`)
+				  try{
+			   } catch (err){
+  return console.log(err)
+}
 
                   if (body.roles[i].rank === Number(currentRankID)){
                     var bodyRolesRankNumber = body.roles[i+1].rank;
 
                     var {body} = await snekfetch.get(`${fireBaseURL}/xpData/users/${userID}.json`)
+					try{
+			   } catch (err){
+  return console.log(err)
+}
                     var currentXP = body.xpValue
 
                     var { body } = await snekfetch.get(`${fireBaseURL}/roles/${bodyRolesRankNumber}.json`);
+					try{
+			   } catch (err){
+  return console.log(err)
+}
                     if ((Number(body.requiredXP) !== Number(0)) && (currentXP >= body.requiredXP)){
                       console.log('promoted')
                       var rblxUsername = await rbx.getUsernameFromId(userID)
@@ -382,6 +496,10 @@ bot.on('message', async message => {
     }
 
     var { body } = await snekfetch.get(`http://api.roblox.com/users/get-by-username?username=${args[1]}`)
+	try{
+			   } catch (err){
+  return console.log(err)
+}
     if (body.errorMessage === "User not found"){
       return message.channel.send(`Sorry ${message.author}, but you gave me an invalid username!\n**\`${prefix}view username1\`**`).then(message => message.delete(5000));
     }
@@ -389,10 +507,18 @@ bot.on('message', async message => {
 
 
     var { body } = await snekfetch.get(`https://www.roblox.com/headshot-thumbnail/json?userId=${userID}&width=180&height=180`);
+	try{
+			   } catch (err){
+  return console.log(err)
+}
     var mugShot = `${body.Url}`
 
 
     var {body} = await snekfetch.get(`${fireBaseURL}/xpData/users/${userID}.json`)
+	try{
+			   } catch (err){
+  return console.log(err)
+}
     var currentXP;
 
     if (!body){
@@ -408,6 +534,10 @@ bot.on('message', async message => {
       var nextRankName;
 
       var {body} = await snekfetch.get(`https://groups.roblox.com/v1/groups/${groupID}/roles`)
+	  try{
+			   } catch (err){
+  return console.log(err)
+}
       console.log(`errors here1`)
       if ((0 < currentRankID) && (currentRankID < 255)){
         for (i = 1; i < body.roles.length; i++){
@@ -416,8 +546,20 @@ bot.on('message', async message => {
             nextRankNumber = body.roles[i+1].rank
             nextRankName = body.roles[i+1].name
             var {body} = await snekfetch.get(`${fireBaseURL}/xpData/users/${userID}.json`)
+			try{
+			   } catch (err){
+  return console.log(err)
+}
             currentRankAndPoints = `**${currentRankName} - Currently has ${body.xpValue} ${xpName}**`
+			try{
+			   } catch (err){
+  return console.log(err)
+}
             var {body} = await snekfetch.get(`${fireBaseURL}/roles/${nextRankNumber}.json`)
+			try{
+			   } catch (err){
+  return console.log(err)
+}
             requiredXP = body.requiredXP
             break
           }
@@ -425,6 +567,10 @@ bot.on('message', async message => {
       }else if (currentRankID === 255){
         currentRankName = await rbx.getRankNameInGroup(groupID, userID)
         var {body} = await snekfetch.get(`${fireBaseURL}/xpData/users/${userID}.json`)
+		try{
+			   } catch (err){
+  return console.log(err)
+}
         currentRankAndPoints = `**${currentRankName} - Currently has ${body.xpValue} ${xpName}**`
         requiredXP = 0
         nextRankName = "??"
@@ -491,7 +637,6 @@ bot.on('message', async message => {
       .setColor(0x1279ff)
       .setTitle(`__Member Commands__`)
       .setDescription(`The following commands can be ran by: *everyone*.`)
-      .addField(`**\`${prefix}verify\`**`, `Associates a user's ROBLOX account with their Discord account through verification procedures.`)
       .addField(`**\`${prefix}view username1\`**`, `Views ${xpName} information about the given username (\`username1\`).`)
       .addField(`**\`${prefix}prefix\`**`, `Returns the current prefix set for the guild.`)
       .addField(`**\`${prefix}commands\`**`, `Displays this menu`)
@@ -510,21 +655,6 @@ bot.on('message', async message => {
       .addField(`**\`${prefix}setup\`**`, `Sets up the guild with all of the information found in the config.json file (./settings/config.json).`)
     await message.author.send(third)
     return undefined;
-  }
-
-  if (message.content.toLowerCase().startsWith(`${config.prefix}code`) || message.content.toLowerCase().startsWith(`${config.prefix}link`) || message.content.toLowerCase().startsWith(`${config.prefix}tutorial`)){
-    var embed = new Discord.RichEmbed()
-      .setColor(0xff3636)
-      .setDescription(`**[Video Tutorial](https://github.com/nishi7409/ClanLabsV2-OpenSourced)**`)
-    await message.channel.send(embed)
-    var embed = new Discord.RichEmbed()
-      .setColor(0x3072ff)
-      .setDescription(`**[Source Code](https://github.com/nishi7409/ClanLabsV2-OpenSourced)**`)
-    await message.channel.send(embed)
-    var embed = new Discord.RichEmbed()
-      .setColor(0x1cff8e)
-      .setDescription(`This project was developed by [Nishant Srivastava](https://www.github.com/nishi7409).\n__The goal of the project was to provide users with a free service of which they can customize and add on to rather than going to a paid service.__`)
-    return message.channel.send(embed)
   }
 
 
